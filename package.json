@@ -1,4 +1,4 @@
-"homepage": "https://yujuanjiang.github.io/littleredumbrella"
+"homepage": "https://yujuanjiang.github.io/littleredumbrella",
 "scripts":{
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build" 
