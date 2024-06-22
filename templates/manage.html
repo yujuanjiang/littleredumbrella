@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Manage page</title>
+</head>
+<body>
+    <div style="position: absolute;top: 30%;left: 45%;">
+	<p2 id="msg_status" style="font-size: 2rem;text-align: center;"></p2>
+	<p2 id="msg_extra" style="color:powderblue;"></p2>
+    </div>
+    <div id="today_status" style="position: absolute;top: 40%;left: 45%;">
+	<img id="img_status" style="max-width:60%;height:60%;" src="{{url_for('static', filename='hot-dogs.gif')}}" onclick ="change();"/>
+    </div>
+    <div style="position: absolute;top: 80%;left: 45%;">
+	<form method="POST">
+	    <p>Open today?
+          	<input type="radio" id="toggle_on" name="status" value="1" checked onclick ="change();"> 
+		<label for="age1">Open</label>
+          	<input type="radio" id="toggle_off" name="status" value="0" onclick ="change();">
+          	<label for="age2">Close</label><br>
+            </p>
+	    <label for="lname">Any extra message:</label>
+  	    <input type="text" id="announcement" name="announcement"><br><br>
+            <input type="submit" text="Post"> <br><br>
+     	 </form>   
+    </div>
+</body>
+
+<script>
+
+    const message_status = document.getElementById("msg_status");
+    const message_extra = document.getElementById("msg_extra");
+
+    window.onload = function(){ init(); };
+
+     function init() {
+       var img_open = "{{url_for('static', filename='hot-dogs.gif')}}",
+           img_close = "{{url_for('static', filename='kawanimals-rain.gif')}}";
+       var imgElement = document.getElementById("img_status");
+
+       if ({{status}} == 1){
+         imgElement.src = img_open;
+         message_status.innerText = "We are open today!\n Come grab a hotdog!\n";
+         document.getElementById("toggle_on").checked = true;
+       } else {
+         imgElement.src = img_close;
+         message_status.innerText = "We are closed today!\n See you next time!\n";
+         document.getElementById("toggle_off").checked = true;
+       }
+
+       if ("{{announcement}}"){
+         message_extra.innerText = "{{announcement}}";
+       }
+
+    }
+
+    function change() {
+       var img_open = "{{url_for('static', filename='hot-dogs.gif')}}",
+           img_close = "{{url_for('static', filename='kawanimals-rain.gif')}}";
+       var imgElement = document.getElementById("img_status");
+
+       const message_status = document.getElementById("msg_status");
+       const message_extra = document.getElementById("msg_extra");
+
+       if (document.getElementById('toggle_on').checked){
+	 imgElement.src = img_open;
+	 message_status.innerText = "We are open today!\n Come grab a hotdog!\n";
+       }else if(document.getElementById('toggle_off').checked){
+	 imgElement.src = img_close;
+	 message_status.innerText = "We are closed today!\n See you next time!\n";
+       } 
+    }
+</script>
+</html>
